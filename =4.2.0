@@ -1,0 +1,19 @@
+Collecting nbformat
+  Downloading nbformat-5.9.0-py3-none-any.whl (77 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 77.6/77.6 kB 2.1 MB/s eta 0:00:00
+Collecting fastjsonschema (from nbformat)
+  Downloading fastjsonschema-2.17.1-py3-none-any.whl (23 kB)
+Collecting jsonschema>=2.6 (from nbformat)
+  Using cached jsonschema-4.17.3-py3-none-any.whl (90 kB)
+Requirement already satisfied: jupyter-core in /home/apprenant/miniconda3/envs/nlp_env/lib/python3.8/site-packages (from nbformat) (4.12.0)
+Requirement already satisfied: traitlets>=5.1 in /home/apprenant/miniconda3/envs/nlp_env/lib/python3.8/site-packages (from nbformat) (5.9.0)
+Collecting attrs>=17.4.0 (from jsonschema>=2.6->nbformat)
+  Using cached attrs-23.1.0-py3-none-any.whl (61 kB)
+Requirement already satisfied: importlib-resources>=1.4.0 in /home/apprenant/miniconda3/envs/nlp_env/lib/python3.8/site-packages (from jsonschema>=2.6->nbformat) (5.12.0)
+Collecting pkgutil-resolve-name>=1.3.10 (from jsonschema>=2.6->nbformat)
+  Downloading pkgutil_resolve_name-1.3.10-py3-none-any.whl (4.7 kB)
+Collecting pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,>=0.14.0 (from jsonschema>=2.6->nbformat)
+  Using cached pyrsistent-0.19.3-py3-none-any.whl (57 kB)
+Requirement already satisfied: zipp>=3.1.0 in /home/apprenant/miniconda3/envs/nlp_env/lib/python3.8/site-packages (from importlib-resources>=1.4.0->jsonschema>=2.6->nbformat) (3.15.0)
+Installing collected packages: fastjsonschema, pyrsistent, pkgutil-resolve-name, attrs, jsonschema, nbformat
+Successfully installed attrs-23.1.0 fastjsonschema-2.17.1 jsonschema-4.17.3 nbformat-5.9.0 pkgutil-resolve-name-1.3.10 pyrsistent-0.19.3
