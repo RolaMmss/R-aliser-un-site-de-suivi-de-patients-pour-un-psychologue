@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl -X PUT 'http://127.17.0.1:9200/notes' -H 'Content-Type: application/json' -d '
+curl -X PUT 'http://127.17.0.1:9200/notes2' -H 'Content-Type: application/json' -d '
 {
   "mappings": {
     "properties": {
