@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route('/notes')
 def get_notes():
     # Rechercher tous les documents dans l'index "notes"
-    response = es.search(index="notes", body={"query": {"match_all": {}}})
+    response = es.search(index="notes2", body={"query": {"match_all": {}}})
 
     # Récupérer les documents à partir de la réponse
     documents = response['hits']['hits']

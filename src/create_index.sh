@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#réer l'index "notes2"
 curl -X PUT 'http://127.17.0.1:9200/notes2' -H 'Content-Type: application/json' -d '
 {
   "mappings": {
@@ -31,10 +30,3 @@ curl -X PUT 'http://127.17.0.1:9200/notes2' -H 'Content-Type: application/json' 
   }
 }'
 
-#Mettre à jour les paramètres de l'index "notes2"
-curl -X PUT 'http://127.17.0.1:9200/notes2/_settings' -H 'Content-Type: application/json' -d '
-{
-  "index": {
-    "blocks.read_only_allow_delete": false
-  }
-}'
