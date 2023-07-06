@@ -39,7 +39,6 @@ custom_pipeline = [preprocessing.fillna,
 
 data['clean_text'] = hero.clean(data['Text'], pipeline=custom_pipeline)
 
-
 # Example usage
 nlp_pipeline = Pipeline([
     # ('preprocessor', custom_pipeline()),
