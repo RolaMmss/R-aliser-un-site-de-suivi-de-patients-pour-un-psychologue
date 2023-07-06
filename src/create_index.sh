@@ -28,6 +28,5 @@ curl -X PUT 'http://127.17.0.1:9200/notes2' -H 'Content-Type: application/json' 
       }
     } 
   }
-}
-'
+}'
 
