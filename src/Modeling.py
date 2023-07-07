@@ -41,43 +41,35 @@ custom_pipeline = [preprocessing.fillna,
 ]
 
 data['clean_text'] = hero.clean(data['Text'], pipeline=custom_pipeline)
-
-topWords = hero.top_words(data['clean_text'])
-print(topWords)
-
-word= ' '.join([twts for twts in data['clean_text']])
-clude= WordCloud(width=1000, height=1000, random_state= 21,min_font_size=15,max_font_size=119).generate(word)
-plt.figure(figsize = (15,15))
-plt.imshow(clude,interpolation='bilinear')
-plt.axis('off')
-plt.show()
-
-# # Example usage
-# nlp_pipeline = Pipeline([
-#     # ('preprocessor', custom_pipeline()),
-#     ('vectorizer', TfidfVectorizer()),
-#     ('classifier', LogisticRegression())
-# ])
+data.to_csv('clean_data.csv', index=False)  # Saving the DataFrame to a CSV file
 
 
-# X = data['clean_text']
-# y = data['Emotion']
+# Example usage
+nlp_pipeline = Pipeline([
+    # ('preprocessor', custom_pipeline()),
+    ('vectorizer', TfidfVectorizer()),
+    ('classifier', LogisticRegression())
+])
 
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# nlp_pipeline.fit(X_train, y_train)
-# y_pred = nlp_pipeline.predict(y_test)
+X = data['clean_text']
+y = data['Emotion']
 
-# # Calculate accuracy for TF-IDF model
-# accuracy = accuracy_score(y_test, y_pred)
-# print("Accuracy (TF-IDF):", accuracy)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# # Mesure de confiance (ici, probabilité de la classe prédite)
-# confidence = nlp_pipeline.predict_proba(X_test).max(axis=1)
+nlp_pipeline.fit(X_train, y_train)
+y_pred = nlp_pipeline.predict(y_test)
 
-# # print("Rapport de classification pour le modèle TF-IDF :")
-# # print(classification_report(y_test, y_pred))
-# # confidence
+# Calculate accuracy for TF-IDF model
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy (TF-IDF):", accuracy)
 
-# with open('nlp_pipeline.pkl', 'wb') as file:
-#     pickle.dump(nlp_pipeline, file)
+# Mesure de confiance (ici, probabilité de la classe prédite)
+confidence = nlp_pipeline.predict_proba(X_test).max(axis=1)
+
+# print("Rapport de classification pour le modèle TF-IDF :")
+# print(classification_report(y_test, y_pred))
+# confidence
+
+with open('nlp_pipeline.pkl', 'wb') as file:
+    pickle.dump(nlp_pipeline, file)
