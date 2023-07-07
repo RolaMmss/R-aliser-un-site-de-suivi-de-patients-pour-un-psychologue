@@ -8,6 +8,9 @@ from sklearn.model_selection import train_test_split
 import pickle
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+
 
 # Read the XLSX file
 data= pd.read_csv("../data/Emotion_final.csv")
@@ -38,6 +41,7 @@ custom_pipeline = [preprocessing.fillna,
 ]
 
 data['clean_text'] = hero.clean(data['Text'], pipeline=custom_pipeline)
+data.to_csv('clean_data.csv', index=False)  # Saving the DataFrame to a CSV file
 
 
 # Example usage
