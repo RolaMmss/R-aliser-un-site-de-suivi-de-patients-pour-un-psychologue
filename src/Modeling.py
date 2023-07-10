@@ -16,6 +16,7 @@ from wordcloud import WordCloud
 data= pd.read_csv("../data/Emotion_final.csv")
 
 
+
 default_stopwords = set(stopwords.DEFAULT)
 custom_stopwords = ['ive','something','feel','feeling','feelings','like','im','know','get','would','time','little','even','one','life','people','think','bit','things','much','dont','make','going']
 # Get the default English stopwords from texthero and add the custom stopwords
@@ -41,7 +42,7 @@ custom_pipeline = [preprocessing.fillna,
 ]
 
 data['clean_text'] = hero.clean(data['Text'], pipeline=custom_pipeline)
-data.to_csv('clean_data.csv', index=False)  # Saving the DataFrame to a CSV file
+data.to_csv('../data/clean_data.csv', index=False)  # Saving the DataFrame to a CSV file
 
 
 # Example usage
