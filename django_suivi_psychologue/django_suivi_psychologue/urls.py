@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import suivi_app.views as views
+
+app_name = 'suivi_app'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('homepage/', views.homepage, name='homepage'),
+
+    # path('repartition-emotions/', views.repartition_emotions, name='repartition_emotions'),
+    # path('recherche-textes/', views.recherche_textes, name='recherche_textes'),
 ]
