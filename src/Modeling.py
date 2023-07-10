@@ -13,7 +13,7 @@ from wordcloud import WordCloud
 
 
 # Read the XLSX file
-data= pd.read_csv("../data/Emotion_final.csv")
+data= pd.read_csv("../data/clean_data.csv")
 
 
 
