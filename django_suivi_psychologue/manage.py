@@ -6,7 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'suivi_psychologue.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_suivi_psychologue.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
