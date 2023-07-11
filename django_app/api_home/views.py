@@ -1,5 +1,4 @@
 from django.shortcuts import render
-# from .forms import IngredientsForm, TestForm
 from django.views.generic import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -12,6 +11,8 @@ def login(request):
 def page_home(request):
     return render(request,'pages_main/home.html')
 
+def psyco(request):
+    return render(request, 'pages_main/new_patient.html')
 
 
 # @login_required
