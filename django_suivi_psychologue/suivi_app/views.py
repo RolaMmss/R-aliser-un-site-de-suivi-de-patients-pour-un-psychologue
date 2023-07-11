@@ -1,39 +1,20 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from . import forms
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
+from .models import Psychologue, Patient, Texte, Evaluation
 from django.conf import settings
-from suivi_app.models import User, Rdv
+# from suivi_app.models import User, Rdv
 from django.contrib import messages
 from datetime import datetime
 
 
 
-def accueil(request):
-    """Vue pour la page d'accueil du site. Affiche des statistiques sur les rendez-vous
-    à venir et les créneaux horaires libres si le coach est connecté. Sinon il affiche la présentation du coach et ses prestations.
-
-    Args:
-        request : requête HTTP reçue par la vue
-
-    Returns:
-        - réponse HTTP avec un template rendu contenant les statistiques suivantes pour le coach :
-            - le nombre de rendez-vous à venir 
-            - le nombre de créneaux horaires libres
-            - la date courante au format 'YYYY-MM-DD'
-            - l'heure courante au format 'HH:MM'
-    """
-    today = datetime.now().date()
-    rdv_a_venir = Rdv.objects.filter(date__gte=today, user__isnull=False)
-    rdv_count = rdv_a_venir.count()
-    creneaux_libres = Rdv.objects.filter(date__gte=today, user__isnull=True)
-    creneaux_libres_count = creneaux_libres.count()
-    now = datetime.now()
-    hour = now.strftime("%H:%M")
-    return render(request, 'rdv/accueil.html',{'rdv_count':rdv_count, 'creneaux_libres_count':creneaux_libres_count, 'today':today, 'hour':hour})
+def homepage(request):  
+    return render(request, 'rdv/homepage.html')
 
 
-def login_page(request):
+def login_view(request):
     """
     Vue pour la page de connexion du site. Permet à un utilisateur de se connecter avec son nom d'utilisateur
     et son mot de passe, puis redirige l'utilisateur vers la page d'accueil si les informations de connexion
@@ -58,7 +39,7 @@ def login_page(request):
             )
             if user is not None:
                 login(request, user)
-                return redirect('accueil')
+                return redirect('homepage')
             else:
                 message = 'Identifiants invalides.'
     return render(
@@ -66,7 +47,7 @@ def login_page(request):
 
 
 @login_required(login_url='login')
-def logout_user(request):
+def logout_view(request):
     """
     Vue pour la déconnexion de l'utilisateur connecté. Déconnecte l'utilisateur actuel et le redirige vers la
     page d'accueil.
@@ -78,10 +59,10 @@ def logout_user(request):
     - réponse HTTP avec une redirection vers la page d'accueil
     """
     logout(request)
-    return redirect('accueil')
+    return redirect('homepage')
 
 
-def signup_page(request):
+def signup_view(request):
     """
     Vue pour la page d'inscription du site. Affiche un formulaire d'inscription permettant à un nouvel utilisateur
     de créer un compte. Si le formulaire est soumis et valide, le nouvel utilisateur est enregistré et connecté automatiquement, puis redirigé vers la
@@ -102,8 +83,18 @@ def signup_page(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('accueil')
+            return redirect('homepage')
     return render(request, 'rdv/signup.html', {'form':form})
 
 
 # @login_required(login_url='login')
+
+def repartition_emotions(request):
+    # Logique pour calculer et afficher la répartition des émotions
+    return render(request, 'repartition_emotions.html', context)
+
+def recherche_textes(request):
+    # Logique pour rechercher les textes avec filtres
+    return render(request, 'recherche_textes.html', context)
+
+# Autres vues pour les différentes fonctionnalités
