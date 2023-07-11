@@ -12,6 +12,9 @@ def login(request):
 def page_home(request):
     return render(request,'pages_main/home.html')
 
+def new_patient(request):
+    return render(request,'pages_main/new_patient.html')
+
 
 
 # @login_required
@@ -23,3 +26,4 @@ class SignupPage(CreateView):
     form_class = forms.UserCreateForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
+    

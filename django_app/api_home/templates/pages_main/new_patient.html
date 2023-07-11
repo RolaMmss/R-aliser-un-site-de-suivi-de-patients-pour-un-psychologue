@@ -1,0 +1,14 @@
+
+ <!-- Page de création d'un nouveau patient -->
+ <div id="new-patient-page">
+    <h1>Créer un nouveau patient</h1>
+    <form action="/create-patient" method="POST">
+        <label for="patient-firstname">Prénom :</label>
+        <input type="text" id="patient-firstname" name="patient-firstname" required>
+        <label for="patient-lastname">Nom :</label>
+        <input type="text" id="patient-lastname" name="patient-lastname" required>
+        <label for="patient-password">Mot de passe :</label>
+        <input type="password" id="patient-password" name="patient-password" required>
+        <input type="submit" value="Créer">
+    </form>
+</div>
