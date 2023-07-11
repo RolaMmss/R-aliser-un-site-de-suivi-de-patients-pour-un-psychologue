@@ -9,3 +9,4 @@ elasticsearch
 flask
 transformers
 torch
+psycopg2
