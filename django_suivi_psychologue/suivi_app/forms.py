@@ -5,6 +5,8 @@ from suivi_app.models import User
 # from suivi_app.widget import DateTimePickerInput
 from django.forms import widgets
 
+# Get the User model
+User = get_user_model()
 
 # Formulaire de connexion
 class LoginForm(forms.Form):
@@ -25,3 +27,10 @@ class ModifCompte(forms.ModelForm):
         model = User 
         fields = ('username','email', 'first_name', 'last_name',)
 
+# # Formulaire pour ajouter des notes et modifier les notes 
+# class AjouterNotes(forms.ModelForm):
+#     class Meta : 
+#         model = Rdv
+#         exclude = ('user', 'motif', 'date',)
+
+        

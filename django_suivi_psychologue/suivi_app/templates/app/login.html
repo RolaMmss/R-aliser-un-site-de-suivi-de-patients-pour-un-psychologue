@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Connexion</h2>
+  {% if messages %}
+    {% for message in messages %}
+      <p class="alert">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+  <form method="post" action="{% url 'suivi_app:login' %}">
+    {% csrf_token %}
+    <div>
+      <label for="username">Nom d'utilisateur :</label>
+      <input type="text" name="username" id="username" required>
+    </div>
+    <div>
+      <label for="password">Mot de passe :</label>
+      <input type="password" name="password" id="password" required>
+    </div>
+    <button type="submit">Se connecter</button>
+  </form>
+{% endblock %}

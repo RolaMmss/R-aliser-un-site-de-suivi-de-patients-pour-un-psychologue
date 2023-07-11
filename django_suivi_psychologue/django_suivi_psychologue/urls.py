@@ -21,8 +21,10 @@ app_name = 'suivi_app'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('homepage/', views.homepage, name='homepage'),
-
-    # path('repartition-emotions/', views.repartition_emotions, name='repartition_emotions'),
-    # path('recherche-textes/', views.recherche_textes, name='recherche_textes'),
+    path('', views.homepage, name='homepage'),
+    path('repartition-emotions/', views.repartition_emotions, name='repartition_emotions'),
+    path('recherche-textes/', views.recherche_textes, name='recherche_textes'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+   
 ]
