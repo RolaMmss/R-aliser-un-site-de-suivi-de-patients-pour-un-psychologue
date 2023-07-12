@@ -49,9 +49,24 @@ def add_text(request):
         text = Text(patient=patient, content=content, evaluation=evaluation_result)
         text.save()
 
-        return redirect('text_added')  # Redirect to a success page
+    #     return redirect('text_added')  # Redirect to a success page
+
+    # return render(request, 'pages_main/add_text.html')
+        return render(request, 'pages_main/text_added.html', {'evaluation_result': evaluation_result})
 
     return render(request, 'pages_main/add_text.html')
+
+def text_list(request):
+    # Retrieve the text data from Elasticsearch
+    response = es.search(index='texts', body={"query": {"match_all": {}}})
+
+    # Extract the text data from the Elasticsearch response
+    hits = response['hits']['hits']
+    text_data = [hit['_source'] for hit in hits]
+
+    # Pass the text data to the HTML template for rendering
+    return render(request, 'pages_main/text_list.html', {'text_data': text_data})
+
 
 def search_text(request):
     return render(request,'pages_main/search_text.html')
