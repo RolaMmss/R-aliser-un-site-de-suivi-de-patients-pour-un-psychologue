@@ -14,10 +14,6 @@ from django.db import models
 
 
 
-# es = Elasticsearch(hosts=settings.ELASTICSEARCH_HOSTS)
-es = Elasticsearch([{'host': 'localhost', 'port':9200, 'scheme':'http'}])
-
-
 def login(request):
     return render(request,'pages_main/login.html')
 
@@ -32,6 +28,8 @@ def add_text(request):
         content = request.POST.get('content')
         patient = request.user  # Get the logged-in patient
 
+        # es = Elasticsearch(hosts=settings.ELASTICSEARCH_HOSTS)
+        es = Elasticsearch([{'host': 'localhost', 'port':9200, 'scheme':'http'}])
         # Save the text in Elasticsearch
         # Assuming you have set up the Elasticsearch connection as described earlier
         es.index(index='texts', body={
