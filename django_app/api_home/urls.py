@@ -17,6 +17,9 @@ urlpatterns = [
     path('client_list/', views.client_list, name='client_list'),
     path('search_patient/', views.search_patient, name='search_patient'),
     path('search_results/', views.search_results, name='search_results'),
+
+    path('patient/', views.patient_dashboard, name='patient_dashboard'),
+
     path('emotion_distribution/', views.emotion_distribution, name='emotion_distribution-visualization'),
     path('signup/', views.SignupPage.as_view(), name='signup'),
 ]
