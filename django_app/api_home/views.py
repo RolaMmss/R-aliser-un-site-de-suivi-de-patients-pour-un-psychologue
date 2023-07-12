@@ -43,8 +43,7 @@ def create_patient(request):
         patient = Patient.objects.create(nom=lastname, prenom=firstname, password=password)
         patient.save()
         
-        # Redirigez vers une autre page ou effectuez une autre action
-        # Redirigez vers une autre page en utilisant un lien avec href
+
         return render(request, 'pages_main/redirect_home.html')
     else:
         return render(request, 'pages_main/new_patient.html')
