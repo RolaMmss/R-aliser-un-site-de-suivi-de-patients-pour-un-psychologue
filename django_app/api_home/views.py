@@ -49,5 +49,3 @@ def create_patient(request):
     else:
         return render(request, 'pages_main/new_patient.html')
 
-# patient = Patient(nom='Nom du patient', prenom='Prénom du patient', mot_de_passe='Mot de passe')
-# patient.save()
