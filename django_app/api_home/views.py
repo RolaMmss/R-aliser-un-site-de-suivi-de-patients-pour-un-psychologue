@@ -6,15 +6,21 @@ from django.urls import reverse_lazy
 from . import forms
 from .models import Patient
 
+
 def login(request):
     return render(request,'pages_main/login.html')
 
 def page_home(request):
     return render(request,'pages_main/home.html')
 
-# def psyco(request):
-#     return render(request, 'pages_main/new_patient.html')
+def new_patient(request):
+    return render(request,'pages_main/new_patient.html')
 
+def new_text(request):
+    return render(request,'pages_main/new_text.html')
+
+def search_text(request):
+    return render(request,'pages_main/search_text.html')
 
 # @login_required
 # def recipe_rslt (request):
