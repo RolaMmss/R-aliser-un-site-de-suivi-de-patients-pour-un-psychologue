@@ -10,8 +10,8 @@ class home_page(models.Model):
 
 
 
-class TestModel(models.Model):
-    resultat = models.CharField(max_length=500)
+# class TestModel(models.Model):
+#     resultat = models.CharField(max_length=500)
     
     
 

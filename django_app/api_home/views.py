@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-# from .forms import IngredientsForm, TestForm
 from django.views.generic import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -32,7 +31,7 @@ class SignupPage(CreateView):
     form_class = forms.UserCreateForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
-    
+
 
 
 def create_patient(request):
@@ -41,9 +40,14 @@ def create_patient(request):
         lastname = request.POST.get('patient-lastname')
         password = request.POST.get('patient-password')
         
-        patient = Patient(firstname=firstname, lastname=lastname, password=password)
+        patient = Patient.objects.create(nom=lastname, prenom=firstname, password=password)
         patient.save()
+        
+        # Redirigez vers une autre page ou effectuez une autre action
+        # Redirigez vers une autre page en utilisant un lien avec href
+        return render(request, 'pages_main/redirect_home.html')
+    else:
+        return render(request, 'pages_main/new_patient.html')
 
-        return redirect('home')  # Redirige vers la page d'accueil après la création du patient
-
-    return render(request, 'create_patient.html')
+# patient = Patient(nom='Nom du patient', prenom='Prénom du patient', mot_de_passe='Mot de passe')
+# patient.save()
