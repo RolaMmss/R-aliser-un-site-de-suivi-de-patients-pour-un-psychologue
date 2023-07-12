@@ -1,0 +1,11 @@
+<!-- search_results.html -->
+{% if patients %}
+  <h2>Résultats de la recherche :</h2>
+  <ul>
+    {% for patient in patients %}
+      <li>{{ patient.firstname }} {{ patient.lastname }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Aucun patient trouvé.</p>
+{% endif %}

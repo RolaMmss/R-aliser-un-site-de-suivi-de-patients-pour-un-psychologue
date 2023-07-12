@@ -65,6 +65,14 @@ def text_added(request):
     return render(request, 'pages_main/text_added.html')
 
 
+def text_added(request):
+    return render(request, 'pages_main/text_added.html')
+
+
+
+def psyco_home(request):
+    return render(request,'pages_main/psyco_home.html')
+
 class SignupPage(CreateView):
     form_class = forms.UserCreateForm
     success_url = reverse_lazy('login')
@@ -77,16 +85,40 @@ def create_patient(request):
         firstname = request.POST.get('patient-firstname')
         lastname = request.POST.get('patient-lastname')
         password = request.POST.get('patient-password')
-        
-        patient = Patient.objects.create(nom=lastname, prenom=firstname, password=password)
+        patient = Patient.objects.create(lastname=lastname, firstname=firstname, password=password)
         patient.save()
         
-        # Redirigez vers une autre page ou effectuez une autre action
-        # Redirigez vers une autre page en utilisant un lien avec href
+
         return render(request, 'pages_main/redirect_home.html')
     else:
         return render(request, 'pages_main/new_patient.html')
 
+
+
+def client_list(request):
+    clients = Patient.objects.all()
+    return render(request, 'pages_main/client_list.html', {'clients': clients})
+
+
+from django.shortcuts import render
+from .models import Patient
+
+def search_patient(request):
+    lastname = request.GET.get('lastname', '')
+    if lastname:
+        patients = Patient.objects.filter(lastname__icontains=lastname)
+    else:
+        patients = []
+    return render(request, 'pages_main/search_patient.html', {'patients': patients})
+
+
+def search_results(request):
+    lastname = request.GET.get('lastname', '')
+    if lastname:
+        patients = Patient.objects.filter(lastname__icontains=lastname)
+    else:
+        patients = []
+    return render(request, 'pages_main/search_results.html', {'patients': patients})
 def emotion_distribution(request):
     # Définissez la période de temps souhaitée
     start_date = datetime.now() - timedelta(days=30)
