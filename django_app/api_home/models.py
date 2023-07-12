@@ -1,5 +1,7 @@
 from unittest.util import _MAX_LENGTH
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 
 # Create your models here.
 class home_page(models.Model):
@@ -11,8 +13,7 @@ class home_page(models.Model):
 
 
 # class TestModel(models.Model):
-#     resultat = models.CharField(max_length=500)
-    
+# resultat = models.CharField(max_length=500)
     
 
 class Patient(models.Model):
@@ -20,7 +21,7 @@ class Patient(models.Model):
     lastname = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
-    # Autres champs du patient
+    psychologue = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patients', default=1)  # Défaut : Utilisez l'ID du premier psychologue enregistré
 
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
@@ -47,3 +48,21 @@ class Emotion(models.Model):
 
     class Meta:
         verbose_name_plural = 'Emotions'
+
+
+from django.contrib.auth.models import AbstractUser, Group, Permission
+
+
+class UserProfile(models.Model):
+    STATUT_CHOICES = [
+        ('psychologue', 'Psychologue'),
+        ('patient', 'Patient'),
+    ]
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    statut = models.CharField(max_length=20, choices=STATUT_CHOICES)
+    # Autres champs spécifiques à l'utilisateur
+
+    def __str__(self):
+        return self.user.username
+    
+

@@ -11,6 +11,9 @@ from .models import Text
 from transformers import pipeline
 from datetime import datetime, timedelta
 from django.db import models
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from .models import UserProfile
 
 
 
@@ -18,8 +21,7 @@ from django.db import models
 es = Elasticsearch([{'host': 'localhost', 'port':9200, 'scheme':'http'}])
 
 
-def login(request):
-    return render(request,'pages_main/login.html')
+
 
 def page_home(request):
     return render(request,'pages_main/home.html')
@@ -73,20 +75,38 @@ class SignupPage(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
 
-
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        
+        # Créer un profil d'utilisateur pour le psychologue
+        user = form.save()
+        profile = UserProfile.objects.create(user=user, statut='psychologue')
+        
+        return response
+    
 
 def create_patient(request):
     if request.method == 'POST':
         firstname = request.POST.get('patient-firstname')
         lastname = request.POST.get('patient-lastname')
         password = request.POST.get('patient-password')
-        patient = Patient.objects.create(lastname=lastname, firstname=firstname, password=password)
-        patient.save()
         
+        # Récupérer l'utilisateur (psychologue) actuellement connecté
+        psychologue = request.user
+
+        # Créer un nouvel utilisateur avec le nom d'utilisateur et le mot de passe fournis
+        user = User.objects.create_user(username=firstname, password=password)
+
+        # Créer une instance de UserProfile associée à l'utilisateur avec le statut "patient"
+        user_profile = UserProfile.objects.create(user=user, statut='patient')
+
+        # Créer un nouveau patient lié à l'utilisateur et au psychologue
+        patient = Patient.objects.create(lastname=lastname, firstname=firstname, password=password, psychologue=psychologue)
 
         return render(request, 'pages_main/redirect_home.html')
     else:
         return render(request, 'pages_main/new_patient.html')
+    
 
 
 
@@ -132,3 +152,37 @@ def emotion_distribution(request):
 
     # Renvoyez les émotions et les données au template pour l'affichage
     return render(request, 'pages_main/emotion_distribution.html', {'emotions': emotions, 'emotion_data': emotion_data})
+
+
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            if user.statut == 'psychologue':
+                return redirect('psychologue_dashboard')
+            elif user.statut == 'patient':
+                return redirect('patient_dashboard')
+        else:
+            # Gérer l'authentification invalide
+            return redirect('login')
+    else:
+        return render(request, 'login.html')
+
+    
+# def login(request):
+#     return render(request,'pages_main/login.html')
+
+@login_required(login_url='psychologue_dashboard')
+def psychologue_dashboard(request):
+    # Logique de vue pour le tableau de bord du patient
+    return render(request, 'pages_main/psyco_home.html')
+
+@login_required(login_url='patient_login')
+def patient_dashboard(request):
+    # Logique de vue pour le tableau de bord du patient
+    return render(request, 'pages_main/patient_home.html')

@@ -19,7 +19,10 @@ urlpatterns = [
     path('search_patient/', views.search_patient, name='search_patient'),
     path('search_results/', views.search_results, name='search_results'),
 
-    
+
+    path('psychologue/', views.psychologue_dashboard, name='psychologue_dashboard'),
+    path('patient/', views.patient_dashboard, name='patient_dashboard'),
+
 
 
     path('emotion_distribution/', views.emotion_distribution, name='emotion_distribution-visualization'),
