@@ -56,3 +56,24 @@ def create_patient(request):
 def client_list(request):
     clients = Patient.objects.all()
     return render(request, 'pages_main/client_list.html', {'clients': clients})
+
+
+from django.shortcuts import render
+from .models import Patient
+
+def search_patient(request):
+    lastname = request.GET.get('lastname', '')
+    if lastname:
+        patients = Patient.objects.filter(lastname__icontains=lastname)
+    else:
+        patients = []
+    return render(request, 'pages_main/search_patient.html', {'patients': patients})
+
+
+def search_results(request):
+    lastname = request.GET.get('lastname', '')
+    if lastname:
+        patients = Patient.objects.filter(lastname__icontains=lastname)
+    else:
+        patients = []
+    return render(request, 'pages_main/search_results.html', {'patients': patients})

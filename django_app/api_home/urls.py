@@ -12,6 +12,10 @@ urlpatterns = [
     path('search_text/', views.search_text, name ='search_text'),
     path('psyco_home/', views.psyco_home, name ='psyco_home'),
     path('client_list/', views.client_list, name='client_list'),
+    path('search_patient/', views.search_patient, name='search_patient'),
+    path('search_results/', views.search_results, name='search_results'),
+
+    
 
 
 
