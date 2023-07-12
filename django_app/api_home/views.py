@@ -64,12 +64,6 @@ def search_text(request):
 def text_added(request):
     return render(request, 'pages_main/text_added.html')
 
-
-def text_added(request):
-    return render(request, 'pages_main/text_added.html')
-
-
-
 def psyco_home(request):
     return render(request,'pages_main/psyco_home.html')
 
@@ -77,7 +71,6 @@ class SignupPage(CreateView):
     form_class = forms.UserCreateForm
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
-
 
 
 def create_patient(request):
@@ -119,6 +112,7 @@ def search_results(request):
     else:
         patients = []
     return render(request, 'pages_main/search_results.html', {'patients': patients})
+
 def emotion_distribution(request):
     # Définissez la période de temps souhaitée
     start_date = datetime.now() - timedelta(days=30)
