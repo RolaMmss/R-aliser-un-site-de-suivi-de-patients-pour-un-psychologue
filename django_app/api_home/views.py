@@ -40,7 +40,7 @@ def create_patient(request):
         lastname = request.POST.get('patient-lastname')
         password = request.POST.get('patient-password')
         
-        patient = Patient.objects.create(nom=lastname, prenom=firstname, password=password)
+        patient = Patient.objects.create(lastname=lastname, firstname=firstname, password=password)
         patient.save()
         
 
