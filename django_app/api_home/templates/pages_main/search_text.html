@@ -1,19 +1,19 @@
 
  <!-- Page de recherche de textes -->
  <div id="text-search-page">
-    <h1>Recherche de textes</h1>
+    <h1>Find a text</h1>
     <form action="/search_text" method="POST">
-        <label for="search-text">Expression recherchée :</label>
+        <label for="search-text">Expression :</label>
         <input type="text" id="search-text" name="search-text" required>
-        <label for="search-emotion">Filtrer par émotion :</label>
+        <label for="search-emotion">Filter by emotion :</label>
         <select id="search-emotion" name="search-emotion">
-            <option value="">Toutes les émotions</option>
+            <option value="">All emotions</option>
             <option value="happy">Happy</option>
             <option value="sad">Sad</option>
             <option value="angry">Angry</option>
             <!-- Autres options d'émotions -->
         </select>
-        <label for="search-patient">Filtrer par patient :</label>
+        <label for="search-patient">Filter by patient :</label>
         <input type="text" id="search-patient" name="search-patient">
         <input type="submit" value="Rechercher">
     </form>
