@@ -20,7 +20,7 @@ urlpatterns = [
     path('search_results/', views.search_results, name='search_results'),
 
 
-    path('psychologue/', views.psychologue_dashboard, name='psychologue_dashboard'),
+    
     path('patient/', views.patient_dashboard, name='patient_dashboard'),
 
 

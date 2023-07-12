@@ -64,8 +64,7 @@ def search_text(request):
 #     return render(request, 'pages_main/final_recipe.html', context = form.resultat)
 
 
-def psyco_home(request):
-    return render(request,'pages_main/psyco_home.html')
+
 def text_added(request):
     return render(request, 'pages_main/text_added.html')
 
@@ -164,7 +163,7 @@ def login(request):
         if user is not None:
             login(request, user)
             if user.statut == 'psychologue':
-                return redirect('psychologue_dashboard')
+                return redirect('psyco_home')
             elif user.statut == 'patient':
                 return redirect('patient_dashboard')
         else:
@@ -176,11 +175,12 @@ def login(request):
     
 # def login(request):
 #     return render(request,'pages_main/login.html')
+@login_required(login_url='psyco_home')
+def psyco_home(request):
+    return render(request,'pages_main/psyco_home.html')
 
-@login_required(login_url='psychologue_dashboard')
-def psychologue_dashboard(request):
-    # Logique de vue pour le tableau de bord du patient
-    return render(request, 'pages_main/psyco_home.html')
+
+
 
 @login_required(login_url='patient_login')
 def patient_dashboard(request):
