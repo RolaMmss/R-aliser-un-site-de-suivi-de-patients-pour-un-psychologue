@@ -1,0 +1,21 @@
+<!-- client_list.html -->
+<h1>Liste des clients</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in clients %}
+        <tr>
+            <td>{{ client.firstname }}</td>
+            <td>{{ client.lastname }}</td>
+            <td>{{ client.password }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

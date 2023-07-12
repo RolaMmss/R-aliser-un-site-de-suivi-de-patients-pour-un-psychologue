@@ -27,6 +27,10 @@ def search_text(request):
 #     form = TestForm(request.POST)
 #     return render(request, 'pages_main/final_recipe.html', context = form.resultat)
 
+
+def psyco_home(request):
+    return render(request,'pages_main/psyco_home.html')
+
 class SignupPage(CreateView):
     form_class = forms.UserCreateForm
     success_url = reverse_lazy('login')
@@ -39,7 +43,6 @@ def create_patient(request):
         firstname = request.POST.get('patient-firstname')
         lastname = request.POST.get('patient-lastname')
         password = request.POST.get('patient-password')
-        
         patient = Patient.objects.create(lastname=lastname, firstname=firstname, password=password)
         patient.save()
         
@@ -48,3 +51,8 @@ def create_patient(request):
     else:
         return render(request, 'pages_main/new_patient.html')
 
+
+
+def client_list(request):
+    clients = Patient.objects.all()
+    return render(request, 'pages_main/client_list.html', {'clients': clients})
