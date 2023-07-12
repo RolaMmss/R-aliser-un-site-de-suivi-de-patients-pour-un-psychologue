@@ -35,8 +35,12 @@ def create_patient(request):
         password = request.POST.get('patient-password')
         
         patient = Patient.objects.create(nom=lastname, prenom=firstname, password=password)
+        patient.save()
         
         # Redirigez vers une autre page ou effectuez une autre action
         return redirect('home')  # Remplacez 'accueil' par le nom de votre URL de destination
     else:
         return render(request, 'pages_main/new_patient.html')
+
+# patient = Patient(nom='Nom du patient', prenom='Prénom du patient', mot_de_passe='Mot de passe')
+# patient.save()
