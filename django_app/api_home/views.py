@@ -10,6 +10,8 @@ from django.conf import settings
 from .models import Text
 from transformers import pipeline
 from datetime import datetime, timedelta
+from django.db import models
+
 
 
 # es = Elasticsearch(hosts=settings.ELASTICSEARCH_HOSTS)
@@ -90,8 +92,9 @@ def emotion_distribution(request):
     start_date = datetime.now() - timedelta(days=30)
     end_date = datetime.now()
 
-    # Récupérez les émotions des patients actifs pour la période spécifiée
-    emotions = Emotion.objects.filter(patient__is_active=True, date__range=(start_date, end_date))
+# Récupérez les émotions des patients actifs pour la période spécifiée
+    active_patients = Patient.objects.filter(is_active=True)    
+    emotions = Emotion.objects.filter(patient__in=active_patients, date__range=(start_date, end_date))
 
     # Calculez la répartition des émotions
     emotion_counts = emotions.values('evaluation').annotate(count=models.Count('evaluation'))

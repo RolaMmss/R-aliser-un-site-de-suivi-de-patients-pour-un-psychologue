@@ -3,6 +3,7 @@ from . import views
 from .views import add_text, text_added
 
 
+
 app_name = "api_home"
 
 urlpatterns = [
@@ -13,7 +14,7 @@ urlpatterns = [
     path('text-added/', text_added, name='text-added'),
 
     path('search_text/', views.search_text, name ='search_text'),
-    path('emotion-visualization/', views.emotion_visualization, name='emotion-visualization'),
+    path('emotion_distribution/', views.emotion_distribution, name='emotion_distribution-visualization'),
 
     #path('special/', views.create_recipe, name='special'),
     path('signup/', views.SignupPage.as_view(), name='signup'),

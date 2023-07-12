@@ -19,6 +19,7 @@ class Patient(models.Model):
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
     # Autres champs du patient
 
     def __str__(self):
