@@ -64,33 +64,6 @@ def add_text(request):
     return render(request, 'pages_main/add_text.html')
 
 
-# def add_text(request):
-#     if request.method == 'POST':
-#         content = request.POST.get('content')
-#         patient = request.user  # Get the logged-in patient
-
-
-
-#         # Save the text in Elasticsearch
-#         # Assuming you have set up the Elasticsearch connection as described earlier
-#         es.index(index='texts', body={
-#             'patient_id': patient.id,
-#             'content': content,
-#         })
-
-#         # Evaluate the text using the Hugging Face model
-#         # evaluation_result = evaluate_text(content)  # Implement this function using the Hugging Face model
-
-#         classifier = pipeline("sentiment-analysis", model="michellejieli/emotion_text_classifier")
-#         evaluation_result = classifier(content)[0]  # Implement this function using the Hugging Face model
-
-#         # Save the text and evaluation in the database
-#         text = Text(patient=patient, content=content, evaluation=evaluation_result)
-#         text.save()
-        
-
-#     return render(request, 'pages_main/add_text.html')
-
 
 
 def search_text(request):
