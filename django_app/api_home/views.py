@@ -14,49 +14,51 @@ from django.db import models
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import UserProfile
+import requests
 
+API_URL = "https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-emotion-multilabel-latest"
+headers = {"Authorization": f"Bearer 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"}
 
-
-# es = Elasticsearch(hosts=settings.ELASTICSEARCH_HOSTS)
-es = Elasticsearch([{'host': 'localhost', 'port':9200, 'scheme':'http'}])
+def query(payload):
+    response = requests.post(API_URL, headers=headers, json=payload)
+    return response.json()
 
 
 def page_home(request):
     return render(request,'pages_main/home.html')
 
-# def new_patient(request):
-#     return render(request,'pages_main/new_patient.html')
 
 def add_text(request):
     if request.method == 'POST':
         content = request.POST.get('content')
         patient = request.user  # Get the logged-in patient
-
-        # es = Elasticsearch(hosts=settings.ELASTICSEARCH_HOSTS)
+        
         es = Elasticsearch([{'host': 'localhost', 'port':9200, 'scheme':'http'}])
+        es.indices.refresh(index='notes2')
         # Save the text in Elasticsearch
         # Assuming you have set up the Elasticsearch connection as described earlier
-        es.index(index='texts', body={
+        
+
+        # # Evaluate the text using the Hugging Face model
+        # # evaluation_result = evaluate_text(content)  # Implement this function using the Hugging Face model
+
+        # classifier = pipeline("sentiment-analysis", model="michellejieli/emotion_text_classifier")
+        # evaluation_result = classifier(content)[0]  # Implement this function using the Hugging Face model
+        
+        evaluation_result = query({"inputs": content})
+
+        es.index(index='notes2', body={
             'patient_id': patient.id,
             'content': content,
+            'emotion' : evaluation_result#[0][0]['label']
         })
 
-        # Evaluate the text using the Hugging Face model
-        # evaluation_result = evaluate_text(content)  # Implement this function using the Hugging Face model
-
-        classifier = pipeline("sentiment-analysis", model="michellejieli/emotion_text_classifier")
-        evaluation_result = classifier(content)[0]  # Implement this function using the Hugging Face model
-
-        # Save the text and evaluation in the database
-        text = Text(patient=patient, content=content, evaluation=evaluation_result)
-        text.save()
-
-    #     return redirect('text_added')  # Redirect to a success page
-
-    # return render(request, 'pages_main/add_text.html')
-        return render(request, 'pages_main/text_added.html', {'evaluation_result': evaluation_result})
+        return render(request, 'pages_main/text_added.html')
 
     return render(request, 'pages_main/add_text.html')
+    #     return render(request, 'pages_main/text_added.html', {'evaluation_result': evaluation_result})
+
+    # return render(request, 'pages_main/add_text.html')
 
 def text_list(request):
     # Retrieve the text data from Elasticsearch
