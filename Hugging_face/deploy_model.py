@@ -9,6 +9,6 @@ def query(payload):
     return response.json()
 
 output = query({
-    "inputs": "I like you. I love you",
+    "inputs": "I'm sad",
 })
 print(output[0][0]['label'])

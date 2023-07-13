@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: ${postgre_db}
+      POSTGRES_USER: ${utilisateur}
+      POSTGRES_PASSWORD: ${mot_de_passe}
+    volumes:
+      - /home/apprenant/Documents/projets/Realiser_un_site_d-analyse_de_sentiments/postgre_local:/var/lib/postgresql/data/
+
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.10
+    environment:
+      - "discovery.type=single-node"
+    ports:
+      - "9200:9200"
+    volumes:
+      - /home/apprenant/Documents/projets/Realiser_un_site_d-analyse_de_sentiments/elastic_local:/usr/share/elasticsearch/data
+
+  web:
+    build: .
+    command: bash -c "python psychologue/manage.py makemigrations && python psychologue/manage.py migrate && python psychologue/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - elasticsearch
+
+volumes:
+  postgres_data:
+  elasticsearch_data:
