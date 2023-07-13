@@ -21,7 +21,7 @@ class Patient(models.Model):
     lastname = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
-    psychologue = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patients', default=1)  # Défaut : Utilisez l'ID du premier psychologue enregistré
+    psychologue = models.ForeignKey(User, on_delete=models.CASCADE, related_name='patient', default=1)  # Défaut : Utilisez l'ID du premier psychologue enregistré
 
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
@@ -50,7 +50,20 @@ class Emotion(models.Model):
         verbose_name_plural = 'Emotions'
 
 
-from django.contrib.auth.models import AbstractUser, Group, Permission
+
+
+# class UserProfile(models.Model):
+#     STATUT_CHOICES = [
+#         ('psychologue', 'Psychologue'),
+#         ('patient', 'Patient'),
+#     ]
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     statut = models.CharField(max_length=20, choices=STATUT_CHOICES)
+#     # Autres champs spécifiques à l'utilisateur
+
+#     def __str__(self):
+#         return self.user.username
+    
 
 
 class UserProfile(models.Model):
@@ -58,11 +71,9 @@ class UserProfile(models.Model):
         ('psychologue', 'Psychologue'),
         ('patient', 'Patient'),
     ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    statut = models.CharField(max_length=20, choices=STATUT_CHOICES)
-    # Autres champs spécifiques à l'utilisateur
+    statut = models.CharField(max_length=20, choices=STATUT_CHOICES, default='patient')
 
     def __str__(self):
-        return self.user.username
-    
-
+        return f"{self.user.username} ({self.statut})"

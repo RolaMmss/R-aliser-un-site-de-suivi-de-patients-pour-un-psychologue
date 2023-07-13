@@ -141,7 +141,7 @@ STATICFILES_DIRS=[BASE_DIR/"static",]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/psyco_home'
+LOGIN_REDIRECT_URL = '/login_view'
 LOGOUT_REDIRECT_URL = '/'
 
 #EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
