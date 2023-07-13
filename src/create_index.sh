@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl -X PUT 'http://127.17.0.1:9200/notes2' -H 'Content-Type: application/json' -d '
+curl -X PUT 'http://0.0.0.0:9200/notes2' -H 'Content-Type: application/json' -d '
 {
   "mappings": {
     "properties": {
@@ -30,3 +30,15 @@ curl -X PUT 'http://127.17.0.1:9200/notes2' -H 'Content-Type: application/json' 
   }
 }'
 
+# to see all my indices:
+# http://localhost:9200/_cat/indices?v
+
+
+
+
+curl -X PUT "localhost:9200/notes" -H 'Content-Type: application/json' -d'
+{
+  "index.blocks.read_only_allow_delete": null,
+  "index.blocks.read_only": false
+}
+'
