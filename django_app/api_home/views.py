@@ -41,6 +41,7 @@ def add_text(request):
 
         es = Elasticsearch([{'host': 'localhost', 'port':9200, 'scheme':'http'}])
         es.indices.refresh(index='notes2')
+        print('Im herrreee')
         # Save the text in Elasticsearch
         # Assuming you have set up the Elasticsearch connection as described earlier
 
