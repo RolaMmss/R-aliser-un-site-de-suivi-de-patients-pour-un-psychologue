@@ -48,18 +48,12 @@ def add_text(request):
         # Save the text and evaluation in the database
         text = Text(patient=patient, content=content, evaluation=evaluation_result)
         text.save()
-
-        return redirect('text_added')  # Redirect to a success page
+        return render(request, 'pages_main/text_added.html')
 
     return render(request, 'pages_main/add_text.html')
 
 def search_text(request):
     return render(request,'pages_main/search_text.html')
-
-# @login_required
-# def recipe_rslt (request):
-#     form = TestForm(request.POST)
-#     return render(request, 'pages_main/final_recipe.html', context = form.resultat)
 
 
 
