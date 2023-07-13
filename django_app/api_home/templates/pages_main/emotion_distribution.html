@@ -1,0 +1,30 @@
+
+<!-- emotion_visualization.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Emotion Visualization</title>
+</head>
+<body>
+    <h1>Emotion Visualization</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Emotion</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emotion in emotions %}
+            <tr>
+                <td>{{ emotion.patient.firstname }} {{ emotion.patient.lastname }}</td>
+                <td>{{ emotion.emotion }}</td>
+                <td>{{ emotion.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
